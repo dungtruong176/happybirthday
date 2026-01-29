@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🎂</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff7fb;
+      text-align: center;
+      padding-top: 40px;
+    }
+    .box {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box" id="content">
+  Đang tải...
+</div>
+
+<script>
+  // Link website của bạn (sau khi upload)
+  const mySite = window.location.origin + window.location.pathname;
+
+  // Link thiệp Canva (nhấn Share → Embed → copy link)
+  const canvaEmbed = "https://www.canva.com/design/DAG_xBSZNjU/WjPV9O8TUth1tvstgoKUrA/edit?ui=eyJEIjp7IlEiOnsiQSI6dHJ1ZX19LCJBIjp7fX0";
+
+  // Kiểm tra nếu đã quét QR
+  const urlParams = new URLSearchParams(window.location.search);
+  const opened = urlParams.get("open");
+
+  const contentDiv = document.getElementById("content");
+
+  if(opened === "1") {
+    // Hiện thiệp
+    contentDiv.innerHTML = `
+      <h2>🎉 Happy Birthday 🎉</h2>
+      <p>Chúc bạn một ngày sinh nhật thật vui vẻ!</p>
+      <iframe src="${canvaEmbed}"></iframe>
+    `;
+  } else {
+    // Hiện QR để quét
+    const qrLink = mySite + "?open=1";
+    const qrAPI = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + encodeURIComponent(qrLink);
+
+    contentDiv.innerHTML = `
+      <h2>📱 Quét mã QR này</h2>
+      <p>Sau khi quét, điều bất ngờ sẽ xuất hiện ✨</p>
+      <img src="${qrAPI}" alt="QR Code">
+    `;
+  }
+</script>
+
+</body>
+</html>
